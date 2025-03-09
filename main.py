@@ -1,16 +1,42 @@
-# This is a sample Python script.
+import pygame
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+pygame.init()
+
+base_width = 1920
+base_height = 1080
+
+WIDTH = 1600
+HEIGHT = 800
+
+SCALE_FACTOR_LIST = [WIDTH / base_width, HEIGHT / base_height]
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.RESIZABLE)
+
+run = True
+FPS = 60
+main_clock = pygame.time.Clock()
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+def load_image_with_scale(path, factors: list):
+    image = pygame.image.load(path)
+    image = pygame.transform.scale(image, (image.get_width() * factors[0], image.get_height() * factors[1]))
+    return image
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+while run:
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    screen.fill((0, 0, 0))
+
+    WIDTH, HEIGHT = pygame.display.get_window_size()
+    SCALE_FACTOR_LIST = [WIDTH / base_width, HEIGHT / base_height]
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+
+    img = load_image_with_scale("data_folder/test_img/bg.jpg", SCALE_FACTOR_LIST)
+
+    screen.blit(img, (WIDTH / 2 - img.get_width() / 2, HEIGHT / 2 - img.get_height() / 2))
+
+    main_clock.tick(FPS)
+    pygame.display.flip()
