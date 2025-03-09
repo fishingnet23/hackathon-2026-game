@@ -20,7 +20,8 @@ run = True
 FPS = 60
 main_clock = pygame.time.Clock()
 
-
+class object:
+    
 def load_image_with_scale(path, factors: list, dimesions=(1, 1)):
     global WIDTH, HEIGHT
     image = pygame.image.load(path)
@@ -30,7 +31,7 @@ def load_image_with_scale(path, factors: list, dimesions=(1, 1)):
 
 def smart_blit(surf, image, xScale, yScale, center_x=False, center_y=False):
 
-        surf.blit(image, (WIDTH * xScale - image.get_width() / 2, HEIGHT * yScale - image.get_height() / 2))
+        surf.blit(image, (WIDTH * xScale - (image.get_width() / 2 * center_x.__bool__()), HEIGHT * yScale - (image.get_height() / 2) * center_y.__bool__()))
 
 
 
@@ -45,9 +46,9 @@ while run:
         if event.type == pygame.QUIT:
             run = False
 
-    img = load_image_with_scale("data_folder/test_img/bg.jpg", SCALE_FACTOR_LIST, (0.5, 0.5))
+    img = load_image_with_scale("data_folder/test_img/bg.jpg", SCALE_FACTOR_LIST)
 
-    smart_blit(screen, img, 0.5, 0.5, )
+    smart_blit(screen, img, 0.5, 0.5, True, True)
 
     main_clock.tick(FPS)
     pygame.display.flip()
