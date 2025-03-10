@@ -34,6 +34,9 @@
         def set_gravity_factor(self,factor):
             self.factor = factor
         def draw(self,screen):
+            pass
+
+
 
     def load_image_with_scale(path, factors: list, dimesions=(1, 1)):
         global WIDTH, HEIGHT
